@@ -85,12 +85,19 @@ class LegalDeadlineCalculator {
             clearHistoryBtn.addEventListener('click', () => this.clearHistory());
         }
 
-        // Set default date to today
-        if (triggerDateInput) {
+        // Set default date to today and trigger initial calculation
+        if (triggerDateInput && daysInput) {
             const today = new Date().toISOString().split('T')[0];
             triggerDateInput.value = today;
+            // Ensure days input has a value
+            if (!daysInput.value) {
+                daysInput.value = 30;
+            }
             // Delay initial calculation to ensure DOM is ready
-            setTimeout(() => this.calculateDeadline(), 100);
+            setTimeout(() => {
+                console.log('Running initial calculation...');
+                this.calculateDeadline();
+            }, 200);
         }
     }
 
@@ -126,18 +133,30 @@ class LegalDeadlineCalculator {
 
         if (!triggerDateInput || !daysInput) return;
 
-        const triggerDate = new Date(triggerDateInput.value);
+        // Parse date in local timezone to avoid timezone issues
+        const dateString = triggerDateInput.value;
+        const [year, month, day] = dateString.split('-').map(num => parseInt(num));
+        const triggerDate = new Date(year, month - 1, day); // month is 0-indexed
+
         const days = parseInt(daysInput.value) || 0;
         const direction = directionToggle && directionToggle.classList.contains('active') ? 'backward' : 'forward';
         const useBusinessDays = businessDaysToggle && businessDaysToggle.classList.contains('active');
         const excludeHolidays = excludeHolidaysToggle && excludeHolidaysToggle.classList.contains('active');
 
-        if (isNaN(triggerDate.getTime()) || isNaN(days)) {
+        if (isNaN(triggerDate.getTime()) || isNaN(days) || days <= 0) {
             this.displayError('Please enter a valid date and number of days');
             return;
         }
 
         const result = this.calculateDate(triggerDate, days, direction, useBusinessDays, excludeHolidays);
+        console.log('Calculation result:', {
+            startDate: result.startDate,
+            endDate: result.endDate,
+            days: days,
+            direction: direction,
+            useBusinessDays: useBusinessDays,
+            excludeHolidays: excludeHolidays
+        });
         this.displayResult(result);
         this.addToHistory(result);
     }
@@ -262,15 +281,19 @@ class LegalDeadlineCalculator {
         if (!resultDisplay) return;
 
         // Format dates
-        const options = { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         };
-        
-        const formattedDate = result.endDate.date.toLocaleDateString('en-US', options);
-        const daysFromNow = Math.ceil((result.endDate.date - new Date()) / (1000 * 60 * 60 * 24));
+
+        // Handle both Date objects and rollover objects
+        const endDate = result.endDate.date || result.endDate;
+        const isRollover = result.endDate.isRollover || false;
+
+        const formattedDate = endDate.toLocaleDateString('en-US', options);
+        const daysFromNow = Math.ceil((endDate - new Date()) / (1000 * 60 * 60 * 24));
 
         // Display main result
         resultDisplay.innerHTML = `
@@ -281,7 +304,7 @@ class LegalDeadlineCalculator {
                       daysFromNow > 0 ? `${daysFromNow} days from now` : 
                       `${Math.abs(daysFromNow)} days ago`}
                 </div>
-                ${result.endDate.isRollover ? 
+                ${isRollover ?
                     '<div class="text-sm text-amber-600">Rolled over from weekend/holiday</div>' : ''}
             </div>
         `;
@@ -306,7 +329,7 @@ class LegalDeadlineCalculator {
                         From: ${result.startDate.toLocaleDateString('en-US', options)}
                     </p>
                     <p class="text-sm text-gray-600">
-                        To: ${result.endDate.date.toLocaleDateString('en-US', options)}
+                        To: ${endDate.toLocaleDateString('en-US', options)}
                     </p>
                     ${result.excludedDates.length > 0 ? `
                         <div class="mt-3">

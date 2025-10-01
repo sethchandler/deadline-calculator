@@ -571,6 +571,10 @@
                 if (input && input.type === 'checkbox') {
                     input.checked = e.target.classList.contains('active');
                 }
+                // Trigger calculation after toggle
+                if (window.calculator) {
+                    window.calculator.calculateDeadline();
+                }
             }
         });
         
