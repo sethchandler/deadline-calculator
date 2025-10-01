@@ -89,7 +89,8 @@ class LegalDeadlineCalculator {
         if (triggerDateInput) {
             const today = new Date().toISOString().split('T')[0];
             triggerDateInput.value = today;
-            this.calculateDeadline();
+            // Delay initial calculation to ensure DOM is ready
+            setTimeout(() => this.calculateDeadline(), 100);
         }
     }
 
