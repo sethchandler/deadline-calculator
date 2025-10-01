@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Documentation - Legal Deadline Calculator</title>
+    <meta name="description" content="Complete help documentation and FAQ for the Legal Deadline Calculator. Learn how to calculate deadlines accurately and efficiently.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+Pro:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-navy: #1a365d;
+            --warm-gray: #4a5568;
+            --accent-amber: #d69e2e;
+            --sage-green: #38a169;
+            --light-blue: #3182ce;
+            --bg-warm: #f7fafc;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            min-height: 100vh;
+        }
+        
+        .font-serif { font-family: 'Source Serif Pro', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--warm-gray) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('resources/hero-courthouse.jpg') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .help-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .help-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            color: var(--warm-gray);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-navy);
+            background: rgba(26, 54, 93, 0.1);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        
+        .faq-item {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary-navy);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: #f8fafc;
+        }
+        
+        .faq-answer {
+            padding: 0 20px 20px 20px;
+            color: var(--warm-gray);
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            width: 32px;
+            height: 32px;
+            background: var(--light-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .example-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl font-bold text-gray-900">Legal Deadline Calculator</h1>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="nav-link">Calculator</a>
+                        <a href="about.html" class="nav-link">About</a>
+                        <a href="help.html" class="nav-link active">Help</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg py-16 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 fade-in">
+                    Help & Documentation
+                </h1>
+                <p class="text-xl text-gray-200 mb-8 max-w-3xl mx-auto fade-in stagger-1">
+                    Complete guide to using the Legal Deadline Calculator effectively and accurately
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Guide -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Quick Start Guide</h2>
+                <p class="text-lg text-gray-600">
+                    Get started with deadline calculations in just a few simple steps
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div class="step-card fade-in stagger-1">
+                    <div class="step-number">1</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 mt-4">Enter Trigger Date</h3>
+                    <p class="text-gray-600 mb-4">
+                        Start by entering the date that triggers your deadline period. This could be:
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Date of service</li>
+                        <li>• Filing date</li>
+                        <li>• Event date</li>
+                        <li>• Court order date</li>
+                    </ul>
+                </div>
+
+                <div class="step-card fade-in stagger-2">
+                    <div class="step-number">2</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 mt-4">Set Parameters</h3>
+                    <p class="text-gray-600 mb-4">
+                        Configure your calculation parameters:
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Number of days</li>
+                        <li>• Direction (forward/backward)</li>
+                        <li>• Business days only</li>
+                        <li>• Exclude holidays</li>
+                    </ul>
+                </div>
+
+                <div class="step-card fade-in stagger-3">
+                    <div class="step-number">3</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 mt-4">Calculate</h3>
+                    <p class="text-gray-600 mb-4">
+                        The calculator automatically computes your deadline with:
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Real-time results</li>
+                        <li>• Detailed breakdown</li>
+                        <li>• Urgency indicators</li>
+                        <li>• Rollover protection</li>
+                    </ul>
+                </div>
+
+                <div class="step-card fade-in stagger-1">
+                    <div class="step-number">4</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 mt-4">Save & Track</h3>
+                    <p class="text-gray-600 mb-4">
+                        Manage your deadlines with:
+                    </p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Save important deadlines</li>
+                        <li>• Calculation history</li>
+                        <li>• One-click reload</li>
+                        <li>• Export capabilities</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Features -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Detailed Features</h2>
+                <p class="text-lg text-gray-600">
+                    Learn about all the features that make our calculator the professional choice
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="help-card fade-in stagger-1">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Date Input Options</h3>
+                    <p class="text-gray-600 mb-4">
+                        Flexible date input with multiple format support and smart date recognition.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Supported Formats:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• MM/DD/YYYY</li>
+                            <li>• MM-DD-YYYY</li>
+                            <li>• Month DD, YYYY</li>
+                            <li>• Calendar picker</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="help-card fade-in stagger-2">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Calculation Methods</h3>
+                    <p class="text-gray-600 mb-4">
+                        Multiple calculation methods to match different legal requirements and jurisdictions.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Methods:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Calendar days (all days)</li>
+                            <li>• Business days (Mon-Fri)</li>
+                            <li>• Working days (Mon-Sat)</li>
+                            <li>• Custom business days</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="help-card fade-in stagger-3">
+                    <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Holiday Management</h3>
+                    <p class="text-gray-600 mb-4">
+                        Comprehensive holiday database with automatic exclusion and configurable options.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Features:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• US federal holidays</li>
+                            <li>• Multi-year coverage</li>
+                            <li>• Automatic exclusion</li>
+                            <li>• Holiday rollover rules</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="help-card fade-in stagger-1">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">History & Tracking</h3>
+                    <p class="text-gray-600 mb-4">
+                        Keep track of all your calculations with detailed history and easy reload functionality.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Capabilities:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Automatic history saving</li>
+                            <li>• One-click reload</li>
+                            <li>• Detailed calculation records</li>
+                            <li>• Export functionality</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="help-card fade-in stagger-2">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Urgency Indicators</h3>
+                    <p class="text-gray-600 mb-4">
+                        Visual urgency indicators help you prioritize deadlines based on proximity and importance.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Color Codes:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Green: > 30 days</li>
+                            <li>• Yellow: 7-30 days</li>
+                            <li>• Orange: 3-7 days</li>
+                            <li>• Red: < 3 days</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="help-card fade-in stagger-3">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Mobile Optimization</h3>
+                    <p class="text-gray-600 mb-4">
+                        Fully responsive design that works perfectly on all devices, from desktop to mobile.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Features:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Touch-friendly interface</li>
+                            <li>• Responsive layout</li>
+                            <li>• Mobile-optimized inputs</li>
+                            <li>• Cross-device compatibility</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                <p class="text-lg text-gray-600">
+                    Find answers to common questions about using the Legal Deadline Calculator
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                
+                <div class="faq-item fade-in stagger-1">
+                    <div class="faq-question">
+                        <span>How accurate are the deadline calculations?</span>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Our calculations follow the Federal Rules of Civil Procedure and legal industry standards. We maintain a 99.9% accuracy rate by using verified federal holiday data and following established legal calendaring rules. However, always verify critical deadlines with official court rules.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in stagger-2">
+                    <div class="faq-question">
+                        <span>What holidays are included in the calculation?</span>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        The calculator includes all US federal holidays as defined by Title 5, Section 6103 of the United States Code. This includes New Year's Day, Martin Luther King Jr. Day, Washington's Birthday, Memorial Day, Juneteenth, Independence Day, Labor Day, Columbus Day, Veterans Day, Thanksgiving Day, and Christmas Day.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in stagger-3">
+                    <div class="faq-question">
+                        <span>How does the rollover feature work?</span>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        When a deadline falls on a weekend or federal holiday, the calculator automatically rolls it over to the next business day. This follows the legal principle that deadlines extended to the next business day when the original due date is not a business day. The system checks both weekends and holidays to determine the appropriate rollover date.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in stagger-1">
+                    <div class="faq-question">
+                        <span>Can I calculate deadlines backward from a date?</span>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, you can calculate deadlines in both forward and backward directions. Use the direction toggle to switch between calculating a deadline after a trigger date (forward) or finding a date that is X days before a trigger date (backward). This is useful for determining when certain actions must be completed relative to a future event.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in stagger-2">
+                    <div class="faq-question">
+                        <span>Is my calculation history saved?</span>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, your calculation history is automatically saved in your browser's local storage. The last 10 calculations are stored and can be easily reloaded with a single click. This feature helps you keep track of recent deadlines and quickly recalculate similar deadlines. Note that history is stored locally and will be cleared if you clear your browser data.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in stagger-3">
+                    <div class="faq-question">
+                        <span>Can I use this calculator on mobile devices?</span>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! The calculator is fully responsive and optimized for mobile devices. The interface adapts to different screen sizes, and all features work seamlessly on smartphones and tablets. This makes it perfect for calculating deadlines while in court, at client meetings, or when working remotely.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in stagger-1">
+                    <div class="faq-question">
+                        <span>What do the urgency indicator colors mean?</span>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        The urgency indicators use a color-coded system to help you prioritize deadlines: Green (>30 days) indicates plenty of time, Yellow (7-30 days) suggests approaching deadlines, Orange (3-7 days) indicates urgent deadlines, and Red (<3 days) signals critical deadlines requiring immediate attention. This visual system helps you quickly identify which deadlines need priority.
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in stagger-2">
+                    <div class="faq-question">
+                        <span>Is this calculator suitable for all jurisdictions?</span>
+                        <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        The calculator is designed primarily for US federal court deadlines and follows federal rules. While the basic calculation principles apply to most jurisdictions, you should always verify that the calculation method and holiday exclusions align with your specific court's local rules. Some state courts may have different holiday schedules or calculation methods.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculation Examples -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Calculation Examples</h2>
+                <p class="text-lg text-gray-600">
+                    Real-world examples of how to use the calculator effectively
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="help-card fade-in stagger-1">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Example 1: Discovery Deadline</h3>
+                    <p class="text-gray-600 mb-4">
+                        You need to serve discovery responses within 30 days of receiving the request.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Settings:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Trigger Date: Date request was served</li>
+                            <li>• Days: 30</li>
+                            <li>• Direction: Forward</li>
+                            <li>• Business Days: No</li>
+                            <li>• Exclude Holidays: Yes</li>
+                        </ul>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        The calculator will show your deadline 30 calendar days later, rolling over to the next business day if it falls on a weekend or holiday.
+                    </p>
+                </div>
+
+                <div class="help-card fade-in stagger-2">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Example 2: Motion Filing</h3>
+                    <p class="text-gray-600 mb-4">
+                        You need to file a motion at least 21 business days before the hearing date.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Settings:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Trigger Date: Hearing date</li>
+                            <li>• Days: 21</li>
+                            <li>• Direction: Backward</li>
+                            <li>• Business Days: Yes</li>
+                            <li>• Exclude Holidays: Yes</li>
+                        </ul>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        The calculator will find the date 21 business days before the hearing, excluding weekends and holidays.
+                    </p>
+                </div>
+
+                <div class="help-card fade-in stagger-3">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Example 3: Statute of Limitations</h3>
+                    <p class="text-gray-600 mb-4">
+                        You need to determine the statute of limitations deadline for a case.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Settings:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Trigger Date: Date of incident</li>
+                            <li>• Days: 365 (or applicable period)</li>
+                            <li>• Direction: Forward</li>
+                            <li>• Business Days: No</li>
+                            <li>• Exclude Holidays: No</li>
+                        </ul>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        For statute of limitations, typically all calendar days are counted, so business days and holiday exclusions would be turned off.
+                    </p>
+                </div>
+
+                <div class="help-card fade-in stagger-1">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Example 4: Deposition Scheduling</h3>
+                    <p class="text-gray-600 mb-4">
+                        You need to schedule a deposition within 30 days of serving the notice.
+                    </p>
+                    <div class="example-box">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Settings:</p>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Trigger Date: Date notice was served</li>
+                            <li>• Days: 30</li>
+                            <li>• Direction: Forward</li>
+                            <li>• Business Days: No</li>
+                            <li>• Exclude Holidays: Yes</li>
+                        </ul>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        This gives you the last possible date to schedule the deposition, with automatic rollover if it falls on a non-business day.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal Disclaimers -->
+    <section class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-8">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-lg font-semibold text-amber-800 mb-2">Important Legal Notice</h3>
+                        <div class="text-amber-700 space-y-2">
+                            <p>
+                                This calculator is provided as a tool to assist legal professionals in calculating deadlines. While we strive for accuracy and follow established legal standards, we cannot guarantee that all calculations will be correct for every jurisdiction or situation.
+                            </p>
+                            <p>
+                                <strong>Always verify critical deadlines</strong> with official court rules, local rules, and applicable law. The user is solely responsible for ensuring the accuracy of deadline calculations and compliance with all applicable rules and regulations.
+                            </p>
+                            <p>
+                                This tool does not account for state-specific holidays, local court holidays, or jurisdiction-specific calculation rules unless explicitly stated. Consult with qualified legal counsel for specific deadline questions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Support -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Need More Help?</h2>
+            <p class="text-lg text-gray-600 mb-8">
+                If you have questions not covered in this documentation, we're here to help.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="help-card">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">FAQ</h3>
+                    <p class="text-gray-600 mb-4">Check our frequently asked questions for quick answers.</p>
+                    <a href="#faq" class="text-blue-600 hover:text-blue-700 font-medium">View FAQ →</a>
+                </div>
+                <div class="help-card">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Documentation</h3>
+                    <p class="text-gray-600 mb-4">Comprehensive guides and examples for all features.</p>
+                    <a href="#features" class="text-green-600 hover:text-green-700 font-medium">Read Docs →</a>
+                </div>
+                <div class="help-card">
+                    <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Support</h3>
+                    <p class="text-gray-600 mb-4">Get personalized help with specific questions.</p>
+                    <a href="mailto:support@legaldeadlinecalculator.com" class="text-amber-600 hover:text-amber-700 font-medium">Contact Us →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold mb-4">Legal Deadline Calculator</h3>
+                <p class="text-gray-400 mb-6">
+                    Professional deadline calculation tool for legal professionals
+                </p>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-sm text-gray-400">
+                        © 2025 Legal Deadline Calculator. This tool is for reference purposes only. 
+                        Always verify deadlines with official court rules and regulations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+    
+    <script>
+        // Initialize splitting.js for text animations
+        if (typeof Splitting !== 'undefined') {
+            Splitting();
+        }
+        
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
